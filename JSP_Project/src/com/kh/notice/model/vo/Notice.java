@@ -45,7 +45,7 @@ public class Notice {
 		this.noticeWriter = noticeWriter;
 		this.createDate = createDate;
 	}
-
+	
 	public int getNoticeNo() {
 		return noticeNo;
 	}
