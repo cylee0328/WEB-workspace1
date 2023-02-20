@@ -11,16 +11,16 @@ import com.kh.notice.model.service.NoticeService;
 import com.kh.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeInsertController
+ * Servlet implementation class NoticeUpdateController
  */
-@WebServlet("/insert.no")
-public class NoticeInsertController extends HttpServlet {
+@WebServlet("/update.no")
+public class NoticeUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeInsertController() {
+    public NoticeUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,49 +37,51 @@ public class NoticeInsertController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.setCharacterEncoding("UTF-8");
 		
-		String userNo = request.getParameter("userNo");
+		int nno = Integer.parseInt(request.getParameter("nno"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		
 		Notice n = new Notice();
+		n.setNoticeNo(nno);
 		n.setNoticeTitle(title);
 		n.setNoticeContent(content);
-		n.setNoticeWriter(userNo);
 		
-		int result = new NoticeService().inesrtNotice(n);
+		int result = new NoticeService().updateNotice(n);
 		
-		if(result > 0) { 
-			// 성공시 list.no로 이동.
-			request.getSession().setAttribute("alertMsg", "성공적으로 공지사항이 등록되었습니다.");
-			//response.sendRedirect(request.getContextPath()+"/list.no");
+		if(result > 0) { // 성공시 => /detail.no?nno=nno 상세보기 페이지가 보여지도록함.
 			
-			// 글등록에 성공했을때 내가 작성한 게시글로 곧바로 이동
-			response.sendRedirect(request.getContextPath()+"/detail.no?nno=" + result);
+			request.getSession().setAttribute("alertMsg", "성공적으로 공지사항이 수정되었습니다");
+			response.sendRedirect(request.getContextPath()+"/detail.no?nno="+nno);
 			
-		}else {
-			request.setAttribute("errorMsg", "공지사항 등록 실패");
+		}else { // 실패 => 에러페이지로 포워딩
+			
+			request.setAttribute("errorMsg", "공지사항 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 
 }

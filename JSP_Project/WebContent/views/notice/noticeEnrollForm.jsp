@@ -7,24 +7,24 @@
 <title>Insert title here</title>
 <style>
 	#enroll-form input, #enroll-form textarea{
-		width:100%;
-		box-sizing: border-box;
+		width : 100%;
+		box-sizing : border-box;
 	}
 </style>
 </head>
 <body>
-	<%@include file="../common/menubar.jsp" %>
-
+	<%@ include file="../common/menubar.jsp" %>
+	
 	<div class="outer">
 		<br>
 		<h2 align="center">공지사항 작성하기</h2>
 		<br>
-	
-		<form id="enroll-form" action="<%= contextPath%>/insert.no" method="post">
+		
+		<form id="enroll-form" action="<%=contextPath%>/insert.no" method="post">
 			<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
-			<!-- 현재 로그인한 유저의 정보를 알아내는 방법 중 2번째 방법
-				 1. hidden 타입의 input 태그로 현재 세션에 있는 loginUser정보를 담아주는 방법.
-			-->		
+			<!-- 현재 로그인한 유저의 정보를 알아내는 방법중 2번째 방법
+			     1. hidden타입의 input태그로 현재 세션에 있는 loginUser정보를 담아주는 방법.
+			 -->
 			<table align="center">
 				<tr>
 					<th width="50">제목</th>
@@ -33,7 +33,6 @@
 				<tr>
 					<th>내용</th>
 					<td></td>
-					
 				</tr>
 				
 				<tr>
@@ -45,7 +44,7 @@
 			<br><br>
 			<div align="center">
 				<button type="submit">등록</button>
-				<button type="button" onclick="history.back();">뒤로가기</button>
+				<button type="button" onclick="history.back();" >뒤로가기</button>				
 			</div>
 		</form>
 	
@@ -62,7 +61,13 @@
 	
 	
 	
+	
 	</div>
+
+
+
+
+
 
 
 

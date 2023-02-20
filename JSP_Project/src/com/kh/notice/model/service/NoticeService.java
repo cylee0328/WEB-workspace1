@@ -35,8 +35,9 @@ public class NoticeService {
 		
 		close(conn);
 		
-		return result;
+		return result;		
 	}
+	
 	
 	public Notice selectNotice(int nno) {
 		
@@ -49,25 +50,86 @@ public class NoticeService {
 		return n;
 	}
 	
-	public int insertNotice(Notice n) {
-	      
-	      Connection conn = getConnection();
-	      
-	      int result = new NoticeDao().insertNotice(conn, n);
-	      
-	      if(result > 0) {
-	         commit(conn);
-	         
-	         result = new NoticeDao().selectNoticeNo(conn);
-	      }else {
-	         rollback(conn);
-	      }
-	      
-	      close(conn);
-	      
-	      return result;
-	      
-	   }
+	public int inesrtNotice(Notice n) {
+		
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().insertNotice(conn, n);
+		
+		if(result > 0) {
+			commit(conn);
+			
+			result = new NoticeDao().selectNoticeNo(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int updateNotice(Notice n) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().updateNotice(conn, n);
+		
+		if(result > 0) {
+			commit(conn);
+		}else{
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteNotice(int nno) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().deleteNotice(conn, nno);
+		
+		if(result > 0) {
+			commit(conn);
+		}else{
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

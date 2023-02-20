@@ -40,9 +40,10 @@ public class MemberDeleteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
 		
 		String userPwd = request.getParameter("userPwd");
-		String userId  = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String userId  = ((Member)session.getAttribute("loginUser")).getUserId();
 		
 		// 로그인한 회원의 정보를 얻어오는 방법
 		// 방법 1. session영역에 담겨있는 회원객체로부터 뽑아내기
@@ -50,7 +51,7 @@ public class MemberDeleteController extends HttpServlet {
 		
 		int result = new MemberService().deleteMember(userId, userPwd);
 		
-		HttpSession session = request.getSession();
+		
 		
 		if(result > 0) { // 성공시 -> 메인페이지 alert, 로그아웃처리까지하기
 			
