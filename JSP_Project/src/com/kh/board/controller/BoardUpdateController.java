@@ -17,7 +17,6 @@ import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Category;
 import com.kh.common.MyFileRenamePolicy;
-import com.kh.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -40,12 +39,12 @@ public class BoardUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 필요한 데이터를 담아서 boardUpdateForm.jsp로 포워딩 시켜주기
+		BoardService bService = new BoardService();
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
 		ArrayList<Category> list = new BoardService().selectCategoryList();
-		
-		Board b = new Board();
-		
-		Attachment at = new Attachment();
+		Board b = bService.selectBoard(boardNo);
+        Attachment at = bService.selectAttachment(boardNo);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("b", b);
@@ -74,10 +73,11 @@ public class BoardUpdateController extends HttpServlet {
 			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", 
 					new MyFileRenamePolicy());
 			// 3. 본격적으로 sql문 실행시 필요한 값들 셋팅
+			// - Board테이블에 update시 필요한 값들 셋팅
+			int boardNo = Integer.parseInt(multi.getParameter("bno").trim());
 			String category = multi.getParameter("category");
 			String title = multi.getParameter("title");
 			String content = multi.getParameter("content");
-			int boardNo = Integer.parseInt(multi.getParameter("boardNo"));
 			
 			Board b = new Board();
 			b.setCategory(category);
@@ -112,7 +112,7 @@ public class BoardUpdateController extends HttpServlet {
 			}
 			
 			// 하나의 트랜잭션으로 board에 update문과 Attachment테이블의 insert,update 동시에 처리해주기
-			int result = 0;
+			int result = new BoardService().updateBoard(b, at);
 			// 항상 board에 update문은 반드시 실행시켜줘야함.
 			// case1 : 새로운 첨부파일이 없는경우(x) -> insert (x), update(x), 
 			// case2 : 새로운 첨부파일이 있는경우(o) -> 기존에도 첨부파일이 있던 경우(o)-> update(o), insert(x)
@@ -121,11 +121,11 @@ public class BoardUpdateController extends HttpServlet {
 			
 			// 수정성공시 : 상세조회페이지로 redirect
 				if(result > 0) {
-					request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
-					response.sendRedirect(request.getContextPath()+"/list.bo?currentPage=1");
+					request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+					response.sendRedirect(request.getContextPath()+"/detail.bo?bno="+boardNo);
 				}else {
 					// 수정 실패시 : errorPage
-					request.setAttribute("errorMsg", "게시글 작성 실패");
+					request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
 					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				}
 
