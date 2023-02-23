@@ -15,6 +15,7 @@ public class Board {
 	
 	private String titleImg;
 	
+	private Attachment at;
 	
 	public Board() {
 		super();
@@ -56,6 +57,18 @@ public class Board {
 		this.boardContent = boardContent;
 		this.boardWriter = boardWriter;
 		this.createDate = createDate;
+	}
+	
+	
+	
+
+	public Attachment getAt() {
+		return at;
+	}
+
+
+	public void setAt(Attachment at) {
+		this.at = at;
 	}
 
 
