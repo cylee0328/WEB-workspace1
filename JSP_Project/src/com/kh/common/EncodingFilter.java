@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
-@WebFilter("/*") // 모든 요청에 대해 Filter 먼저 작업할 수 있도록 설정
+@WebFilter("/*") // 모든 요청에 대해 Filter 먼저 작업할수있도록 설정
 public class EncodingFilter implements Filter {
 
     /**
@@ -33,11 +33,11 @@ public class EncodingFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// 서블렛이 호출되기전, 전처리 작업할 코드 작성
+		// 서블릿이호출되기전, 전처리 작업할 코드 작성
 		
 		request.setCharacterEncoding("UTF-8");
 		System.out.println("인코딩실행");
-		// doFilter함수 호출 시 url가지고 더 작업할 서블릿이 있는지 검사
+		// doFilter함수 호출시 url가지고 더 작업할 서블릿 , 이 있는지 검사
 		chain.doFilter(request, response);
 	}
 

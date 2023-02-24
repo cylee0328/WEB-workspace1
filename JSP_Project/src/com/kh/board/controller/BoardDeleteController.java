@@ -2,7 +2,6 @@ package com.kh.board.controller;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,7 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class BoardDeleteController
  */
-@WebServlet(urlPatterns = "/delete.bo" , name="boardDeleteServlet")
+@WebServlet(urlPatterns = "/delete.bo" , name="boardDeleteServlet" )
 public class BoardDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,24 +34,25 @@ public class BoardDeleteController extends HttpServlet {
 		
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		
+		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+	
 		Attachment at = new BoardService().selectAttachment(boardNo);
 		
-		int result = new BoardService().deleteBoard(boardNo, userNo, at);
+		int result = new BoardService().deleteBoard(boardNo, userNo , at);
 		
-		if(result > 0 ) {
+		if(result > 0) {
 			//삭제처리
 			if(at != null) {
-				String savePath = request.getSession().getServletContext().getRealPath(at.getFilePath());
-				new File(savePath+at.getChageName()).delete();
+				String savePath = request.getSession().getServletContext().getRealPath(at.getFilePath());				
+				new File(savePath+at.getChangeName()).delete();
 			}
 			request.getSession().setAttribute("alertMsg", "성공적으로 게시글을 삭제했습니다.");
 			response.sendRedirect(request.getContextPath()+"/list.bo");
-		} else {
-			request.setAttribute("errorMsg", "게시글작성에 실패했습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp");
+		}else {
+			request.setAttribute("errorMsg", "게시글작성에 실패했습니다..");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+	
 	}
 
 	/**

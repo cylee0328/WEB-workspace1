@@ -3,26 +3,26 @@ package com.kh.board.model.vo;
 import java.sql.Date;
 
 public class Attachment {
-	private int fileNo;
-	private int refBno;
-	private String orginName;
-	private String chageName;
-	private String filePath;
-	private Date uploadDate;
-	private int fileLevel;
-	private String status;
+	private int fileNo;			//	FILE_NO
+	private int refBno;			//	REF_BNO
+	private String originName;			//	ORIGIN_NAME
+	private String changeName;			//	CHANGE_NAME
+	private String filePath;			//	FILE_PATH
+	private Date uploadDate;			//	UPLOAD_DATE
+	private int fileLevel;			//	FILE_LEVEL
+	private String status;			//	STATUS
 	
 	public Attachment() {
 		super();
 	}
 
-	public Attachment(int fileNo, int refBno, String orginName, String chageName, String filePath, Date uploadDate,
+	public Attachment(int fileNo, int refBno, String originName, String changeName, String filePath, Date uploadDate,
 			int fileLevel, String status) {
 		super();
 		this.fileNo = fileNo;
 		this.refBno = refBno;
-		this.orginName = orginName;
-		this.chageName = chageName;
+		this.originName = originName;
+		this.changeName = changeName;
 		this.filePath = filePath;
 		this.uploadDate = uploadDate;
 		this.fileLevel = fileLevel;
@@ -45,20 +45,20 @@ public class Attachment {
 		this.refBno = refBno;
 	}
 
-	public String getOrginName() {
-		return orginName;
+	public String getOriginName() {
+		return originName;
 	}
 
-	public void setOrginName(String orginName) {
-		this.orginName = orginName;
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
 
-	public String getChageName() {
-		return chageName;
+	public String getChangeName() {
+		return changeName;
 	}
 
-	public void setChageName(String chageName) {
-		this.chageName = chageName;
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
 	}
 
 	public String getFilePath() {
@@ -95,10 +95,20 @@ public class Attachment {
 
 	@Override
 	public String toString() {
-		return "Attachment [fileNo=" + fileNo + ", refBno=" + refBno + ", orginName=" + orginName + ", chageName="
-				+ chageName + ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", fileLevel=" + fileLevel
+		return "Attachment [fileNo=" + fileNo + ", refBno=" + refBno + ", originName=" + originName + ", changeName="
+				+ changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", fileLevel=" + fileLevel
 				+ ", status=" + status + "]";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

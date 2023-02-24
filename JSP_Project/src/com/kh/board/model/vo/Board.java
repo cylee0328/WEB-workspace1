@@ -58,9 +58,7 @@ public class Board {
 		this.boardWriter = boardWriter;
 		this.createDate = createDate;
 	}
-	
-	
-	
+
 
 	public Attachment getAt() {
 		return at;
