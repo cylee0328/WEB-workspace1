@@ -114,7 +114,16 @@ public class MemberService {
 	}
 	
 	
-	
+	public int idCheck(String userId) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int count = new MemberDao().idCheck(conn, userId);
+		
+		JDBCTemplate.close(conn);
+		
+		return count;
+	}
 	
 	
 	

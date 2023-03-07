@@ -48,20 +48,6 @@ public class AutoCompleteController extends HttpServlet {
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
    }
 
    /**

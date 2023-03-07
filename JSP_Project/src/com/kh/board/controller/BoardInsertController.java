@@ -2,6 +2,7 @@ package com.kh.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -41,6 +42,9 @@ public class BoardInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 카테고리 조회
 		ArrayList<Category> list = new BoardService().selectCategoryList();
+		
+		PrintWriter pw = response.getWriter();
+		pw.write("<html>");
 		
 		request.setAttribute("list", list);
 	
