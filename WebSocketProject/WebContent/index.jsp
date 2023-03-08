@@ -22,7 +22,7 @@
 	// 웹소켓 서버에 연결하기
 	// WebSocket 객체 생성하기 192.168.30.184
 	// const socket = new WebSocket("ws://ip:port/<%= request.getContextPath() %>/chatting.do")
-	const socket = new WebSocket("ws://192.168.30.184:8081/<%= request.getContextPath() %>/chatting.do")
+	const socket = new WebSocket("ws://192.168.30.184:8081/<%= request.getContextPath() %>/chatting2.do")
 	// https://ip:포트번호/~~
 	// http -> ws:~
 	// https -> wss:~
@@ -40,13 +40,22 @@
 		// 수신된 데이터를 반으려면 이벤트객체(e)의 data속성을 이용함.
 		console.log(e);
 		console.log(e.data);
+		//Object형태의 String 데이터를 객체로 반환해주기(JSONObject)
+		console.log(JSON.parse(e.data));
 		
-		let msg = e.data.split(",");
+		let msg = JSON.parse(e.data);
+		if(msg["sender"] == $("#sender").val()){
+			 $("#msgContainer").append( $("<P>").text("<"+msg["sender"]+">"+msg["msg"]).css("text-align", "left"));
+		}else {
+			 $("#msgContainer").append( $("<P>").text("<"+msg["sender"]+">"+msg["msg"]).css("text-align", "right"));
+		}
+		
+		/* let msg = e.data.split(",");
 		if(msg[0] == $("#sender").val()){
 			$("#msgContainer").append( $("<p>").text("<"+msg[0]+ ">"+msg[2]).css("text-align","left"));
 		}else {
 			$("#msgContainer").append( $("<p>").text("<"+msg[1]+ ">"+msg[2]).css("text-align","right"));
-		}
+		} */
 	}
 	
 	// 3. 웹소켓 서버에서 메세지를 전송하는 함수.
@@ -54,12 +63,25 @@
 		// 전송할 메세지 전처리
 		// 전처리한 메세지를 전송하는 방법 : socket.send(데이터);
 		// 발송자 , 수신자 메세지 내용
-		socket.send($("#sender").val() + ","+ $("#receiver").val()+","+$("#msg").val());
+		//socket.send($("#sender").val() + ","+ $("#receiver").val()+","+$("#msg").val());
+		/* let msg = {
+					sender : $("#sender").val(),
+					receiver : $("#receiver").val(),
+					msg : $("#msg").val()
+					}; */
+		let msg = new Message($("#sender").val() , $("#receiver").val() , $("#msg").val() );
+					
+		socket.send(JSON.stringify(msg));
+		
 	};
 	
-	
-	
-
+	function Message(sender, receiver, msg){
+		// this = {}
+		this.sender = sender;
+		this.receiver = receiver;
+		this.msg = msg;
+		//return this
+	}
 </script>
 
 
