@@ -43,8 +43,8 @@ public class BoardInsertController extends HttpServlet {
 		// 카테고리 조회
 		ArrayList<Category> list = new BoardService().selectCategoryList();
 		
-		PrintWriter pw = response.getWriter();
-		pw.write("<html>");
+//		PrintWriter pw = response.getWriter();
+//		pw.write("<html>");
 		
 		request.setAttribute("list", list);
 	
